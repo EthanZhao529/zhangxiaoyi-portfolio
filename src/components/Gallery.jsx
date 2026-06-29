@@ -24,9 +24,24 @@ export default function Gallery({ images, onOpen }) {
     ro.observe(el);
     if (el.parentElement) ro.observe(el.parentElement);
     window.addEventListener("resize", check);
+
+    // 鼠标悬停在这一排上时，滚轮 = 横向滚动（到两端则放行页面纵向滚动）
+    const onWheel = (e) => {
+      if (el.scrollWidth <= el.clientWidth + 1) return; // 装得下不接管
+      const delta = Math.abs(e.deltaX) >= Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (!delta) return;
+      const atStart = el.scrollLeft <= 0;
+      const atEnd = el.scrollLeft >= el.scrollWidth - el.clientWidth - 1;
+      if ((delta < 0 && atStart) || (delta > 0 && atEnd)) return; // 已到端，交还给页面
+      e.preventDefault();
+      el.scrollLeft += delta;
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+
     return () => {
       cancelAnimationFrame(rafId); clearTimeout(t1);
       ro.disconnect(); window.removeEventListener("resize", check);
+      el.removeEventListener("wheel", onWheel);
     };
   }, [images]);
 

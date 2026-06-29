@@ -319,15 +319,10 @@ body.ready .hero__line--outline,body.ready .hero__line--shine{animation-play-sta
 .gal-item img{width:100%;aspect-ratio:16/9;object-fit:cover;pointer-events:none;}
 .gal-item::after{content:"点击放大 ⤢";position:absolute;right:0;bottom:0;background:var(--accent);color:#0a0b14;font-size:11px;font-weight:700;letter-spacing:.05em;padding:6px 12px;transform:translateY(100%);transition:transform .25s;}
 .gal-item:hover::after{transform:translateY(0);}
-.gal-ctrl{display:flex;align-items:center;gap:16px;margin-top:6px;}
 .gal-arrow{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--ink);background:none;color:var(--ink);font-size:20px;line-height:1;cursor:pointer;flex:none;transition:background .2s,color .2s,opacity .2s;}
 .gal-arrow:hover{background:var(--accent);border-color:var(--accent);color:#0a0b14;}
 .gal-arrow[disabled]{opacity:.25;cursor:default;}
 .gal-arrow[disabled]:hover{background:none;color:var(--ink);border-color:var(--ink);}
-.gal-bar{flex:1;height:2px;background:var(--line);position:relative;overflow:hidden;}
-.gal-bar span{position:absolute;left:0;top:0;height:100%;background:var(--accent);width:20%;transition:left .15s,width .15s;}
-.gal-count{font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums;flex:none;}
-.gal-count b{color:var(--ink);}
 
 /* =========================================================
    结尾模块
@@ -472,13 +467,6 @@ body.ready .hero__title{animation-play-state:running;}
 .nav__mute:hover{opacity:1;transform:scale(1.12);}
 .nav__mute.is-muted{opacity:.5;}
 
-/* ===== 画廊：中心聚焦轮播 ===== */
-.gallery--carousel .gal-track{scroll-snap-type:x proximity;padding:62px 0;gap:clamp(10px,1.4vw,20px);align-items:center;}
-.gallery--carousel .gal-item{width:clamp(240px,30vw,420px);scroll-snap-align:center;transition:box-shadow .3s,border-color .3s;will-change:transform,opacity;}
-.gallery--carousel .gal-item:hover{box-shadow:0 30px 72px -12px rgba(0,0,0,.62),0 0 0 1px color-mix(in srgb,var(--accent) 50%,transparent);}
-.gal-pad{flex:0 0 34vw;align-self:stretch;}
-.gal-hint{text-align:center;color:var(--mute);font-size:12px;letter-spacing:.08em;margin-top:8px;}
-
 /* ===== About 重排版 + 照片嵌入（背景用全站贯通层） ===== */
 .about{position:relative;background:transparent;}
 .about__inner{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;}
@@ -559,10 +547,11 @@ body.ready .hero__title{animation-play-state:running;}
 
 /* ===== 画廊：小图排一排，悬停上浮放大 ===== */
 /* 舒适尺寸横向滚动：装得下自动居中，放不下才滚动并在左右两端渐隐（类 iOS 选择器）*/
-.gallery--row .gal-track{width:fit-content;max-width:100%;margin-inline:auto;overflow-x:auto;justify-content:flex-start;cursor:grab;padding:72px 2px 40px;gap:clamp(12px,1.5vw,22px);scroll-snap-type:none;}
+.gallery--row .gal-track{width:fit-content;max-width:100%;margin-inline:auto;overflow-x:auto;justify-content:flex-start;align-items:flex-start;cursor:grab;padding:72px 2px 40px;gap:clamp(12px,1.5vw,22px);scroll-snap-type:none;}
 .gallery--row .gal-track.is-scroll{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 9%,#000 91%,transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 9%,#000 91%,transparent 100%);}
-.gallery--row .gal-item{flex:0 0 auto;width:clamp(190px,18vw,230px);max-width:none;aspect-ratio:16/9;transform-origin:center bottom;transition:transform .42s cubic-bezier(.34,1.34,.6,1),box-shadow .32s,border-color .32s;}
-.gallery--row .gal-item img{height:100%;}
+.gallery--row .gal-item{flex:0 0 auto;width:clamp(190px,18vw,230px);max-width:none;height:auto;aspect-ratio:auto;border-radius:14px;overflow:hidden;transform-origin:center bottom;transition:transform .42s cubic-bezier(.34,1.34,.6,1),box-shadow .32s,border-color .32s;}
+/* 图按原比例显示：16:9 占位防塌陷 + contain 绝不裁切，覆盖旧设计的 object-fit:cover */
+.gallery--row .gal-item img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;}
 .gallery--row .gal-item:hover{transform:translateY(-14px) scale(1.45);z-index:8;border-color:color-mix(in srgb,var(--accent) 55%,transparent);box-shadow:0 38px 84px -14px rgba(0,0,0,.66),0 0 0 1px color-mix(in srgb,var(--accent) 50%,transparent);}
 @media(max-width:760px){.gallery--row .gal-item{width:clamp(150px,46vw,210px);}}
 

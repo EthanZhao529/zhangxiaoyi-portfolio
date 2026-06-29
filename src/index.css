@@ -549,7 +549,7 @@ body.ready .hero__title{animation-play-state:running;}
 /* 舒适尺寸横向滚动：装得下自动居中，放不下才滚动并在左右两端渐隐（类 iOS 选择器）*/
 .gallery--row .gal-track{width:fit-content;max-width:100%;margin-inline:auto;overflow-x:auto;justify-content:flex-start;align-items:flex-start;cursor:grab;padding:72px 2px 40px;gap:clamp(12px,1.5vw,22px);scroll-snap-type:none;}
 .gallery--row .gal-track.is-scroll{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 9%,#000 91%,transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 9%,#000 91%,transparent 100%);}
-.gallery--row .gal-item{flex:0 0 auto;width:clamp(190px,18vw,230px);max-width:none;height:auto;aspect-ratio:auto;border-radius:14px;overflow:hidden;transform-origin:center bottom;transition:transform .42s cubic-bezier(.34,1.34,.6,1),box-shadow .32s,border-color .32s;}
+.gallery--row .gal-item{flex:0 0 auto;width:clamp(190px,18vw,230px);max-width:none;height:auto;aspect-ratio:auto;border-radius:14px;overflow:hidden;transform-origin:center;transition:transform .42s cubic-bezier(.34,1.34,.6,1),box-shadow .32s,border-color .32s;}
 /* 图按原比例显示：16:9 占位防塌陷 + contain 绝不裁切，覆盖旧设计的 object-fit:cover */
 .gallery--row .gal-item img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;}
 .gallery--row .gal-item:hover{transform:translateY(-14px) scale(1.45);z-index:8;border-color:color-mix(in srgb,var(--accent) 55%,transparent);box-shadow:0 38px 84px -14px rgba(0,0,0,.66),0 0 0 1px color-mix(in srgb,var(--accent) 50%,transparent);}

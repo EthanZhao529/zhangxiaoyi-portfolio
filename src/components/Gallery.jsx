@@ -16,7 +16,8 @@ export default function Gallery({ images, onOpen }) {
     // 内容宽度超过可用容器才需要滚动 + 两端渐隐；以父容器为基准避免 fit-content 误判
     const check = () => {
       const avail = el.parentElement ? el.parentElement.clientWidth : el.clientWidth;
-      setScrollable(el.scrollWidth > avail + 1);
+      // avail>0 守卫：避免 0 宽挂载瞬间误判成可滚动(会错套两端渐隐遮罩)
+      setScrollable(avail > 0 && el.scrollWidth > avail + 1);
     };
     check();
     const rafId = requestAnimationFrame(check);

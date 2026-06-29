@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useLayoutEffect, useState } from "react";
 import { img } from "../data/site";
 
 // 舒适尺寸横向滚动浏览；放不下才滚动并在左右两端渐隐（类 iOS 选择器），图少则自动居中。
@@ -9,7 +9,7 @@ export default function Gallery({ images, onOpen }) {
   const wheel = useRef({ target: 0, raf: 0, active: false });
   const [scrollable, setScrollable] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = trackRef.current;
     if (!el) return;
 
